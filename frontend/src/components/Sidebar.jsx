@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 
 const links = [
 	["/", "Home", "⌂"],
@@ -12,21 +13,23 @@ const links = [
 ];
 
 export default function Sidebar() {
+	const { user, logout } = useAuth();
+
 	return (
 		<aside className="sidebar">
 			<div className="brand-wrap">
+				<div className="brand-mark" aria-hidden="true" />
 				<h2 className="brand">
-					<span>The Ethereal</span>
-					<span>Sanctuary</span>
+					<span>Cerivia</span>
 				</h2>
-				<p className="brand-sub">Your Digital Breath</p>
+				<p className="brand-sub">Understand Your Mind, Elevate Your Life.</p>
 			</div>
 
 			<nav>
 				{links.map(([to, label, icon]) => (
 					<NavLink key={to} to={to} className="nav-link" end={to === "/"}>
-						<span>{icon}</span>
-						<span>{label}</span>
+						<span className="nav-icon">{icon}</span>
+						<span className="nav-text">{label}</span>
 					</NavLink>
 				))}
 			</nav>
@@ -38,10 +41,13 @@ export default function Sidebar() {
 				<div className="profile-card">
 					<div className="avatar">👨🏻</div>
 					<div>
-						<strong>Alex Rivera</strong>
+						<strong>{user?.name || "Guest User"}</strong>
 						<small>Premium Member</small>
 					</div>
 				</div>
+				<button className="ghost-btn logout-btn" type="button" onClick={logout}>
+					Logout
+				</button>
 			</div>
 		</aside>
 	);
