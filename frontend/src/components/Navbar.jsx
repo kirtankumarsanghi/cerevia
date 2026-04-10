@@ -48,6 +48,9 @@ export default function Navbar() {
 
 	useEffect(() => {
 		document.documentElement.setAttribute("data-theme", theme);
+		document.body.setAttribute("data-theme", theme);
+		document.body.classList.toggle("theme-dark", theme === "dark");
+		document.body.classList.toggle("theme-light", theme === "light");
 		localStorage.setItem(THEME_STORAGE_KEY, theme);
 	}, [theme]);
 
@@ -172,11 +175,11 @@ export default function Navbar() {
 									type="button"
 									className="menu-link-btn"
 									onClick={() => {
-										navigate("/journal");
+										navigate("/");
 										setOpenMenu(null);
 									}}
 								>
-									Open journal
+									Open home
 								</button>
 								<button type="button" className="menu-link-btn danger" onClick={handleLogout}>
 									Logout
